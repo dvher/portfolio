@@ -1,0 +1,86 @@
+---
+import { getLangFromUrl, useTranslations, pick } from "../i18n/utils";
+import { projects, badgeLabels } from "../data/portfolio";
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="projects" class="section-anchor border-t border-line py-24">
+  <div class="container reveal">
+    <SectionHeading eyebrow={t("projects.eyebrow")} title={t("projects.title")} />
+
+    <p class="-mt-6 mb-12 max-w-2xl leading-relaxed text-ink-muted">
+      {t("projects.note")}
+    </p>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      {
+        projects.map((project) => (
+          <article
+            class:list={[
+              "group flex flex-col rounded-2xl border border-line bg-surface-raised p-6 transition-all hover:-translate-y-1 hover:border-accent/60 hover:shadow-lg hover:shadow-accent/5",
+              project.featured && "sm:col-span-1",
+            ]}
+          >
+            <div class="mb-3 flex items-start justify-between gap-3">
+              <h3 class="text-lg font-semibold text-ink transition-colors group-hover:text-accent-soft">
+                {project.name}
+              </h3>
+              {project.year && (
+                <span class="font-mono text-xs text-ink-muted">{project.year}</span>
+              )}
+            </div>
+
+            {project.badges && project.badges.length > 0 && (
+              <div class="mb-3 flex flex-wrap gap-2">
+                {project.badges.map((badge) => (
+                  <span class="inline-flex items-center rounded-full border border-accent/40 bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent-soft">
+                    {pick(badgeLabels[badge], lang)}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <p class="flex-1 leading-relaxed text-ink-muted">{pick(project.description, lang)}</p>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span class="chip font-mono text-xs">{tag}</span>
+              ))}
+            </div>
+
+            {(project.repo || project.live) && (
+              <div class="mt-5 flex items-center gap-4 border-t border-line pt-4">
+                {project.repo && (
+                  <a
+                    href={project.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-accent"
+                  >
+                    <Icon name="github" size={16} />
+                    {t("projects.viewCode")}
+                  </a>
+                )}
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-accent"
+                  >
+                    <Icon name="external" size={16} />
+                    {t("projects.viewLive")}
+                  </a>
+                )}
+              </div>
+            )}
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

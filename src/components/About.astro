@@ -1,0 +1,41 @@
+---
+import { getLangFromUrl, useTranslations, pick } from "../i18n/utils";
+import { profile } from "../data/portfolio";
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="about" class="section-anchor border-t border-line py-24">
+  <div class="container reveal">
+    <SectionHeading eyebrow={t("about.eyebrow")} title={t("about.title")} />
+
+    <div class="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
+      <div class="space-y-5 text-lg leading-relaxed text-ink-muted">
+        <p>{pick(profile.bio, lang)}</p>
+        <p class="flex items-center gap-2 text-base text-ink">
+          <Icon name="map-pin" size={18} class="text-accent" />
+          {t("about.location")}
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-line bg-surface-raised p-6">
+        <h3 class="mb-4 font-mono text-sm font-semibold uppercase tracking-widest text-ink-muted">
+          {t("about.factsTitle")}
+        </h3>
+        <ul class="space-y-3">
+          {
+            profile.facts.map((fact) => (
+              <li class="flex items-start gap-3 text-ink">
+                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                {pick(fact, lang)}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

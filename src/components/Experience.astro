@@ -1,0 +1,74 @@
+---
+import { getLangFromUrl, useTranslations, pick } from "../i18n/utils";
+import { experience, education } from "../data/portfolio";
+import SectionHeading from "./SectionHeading.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const startLabel = (job: (typeof experience)[number]) =>
+  lang === "en" && job.startEn ? job.startEn : job.start;
+---
+
+<section id="experience" class="section-anchor border-t border-line py-24">
+  <div class="container reveal">
+    <SectionHeading eyebrow={t("experience.eyebrow")} title={t("experience.title")} />
+
+    <ol class="relative space-y-10 border-l border-line pl-8">
+      {
+        experience.map((job) => (
+          <li class="relative">
+            <span class="absolute -left-[41px] top-1.5 flex h-4 w-4 items-center justify-center rounded-full border-2 border-accent bg-surface">
+              <span class="h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+
+            <div class="rounded-2xl border border-line bg-surface-raised p-6 transition-colors hover:border-accent/50">
+              <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 class="text-lg font-semibold text-ink">{pick(job.role, lang)}</h3>
+                <span class="font-mono text-sm text-ink-muted">
+                  {startLabel(job)} — {pick(job.end, lang)}
+                </span>
+              </div>
+              <p class="mt-0.5 font-medium text-accent-soft">{job.company}</p>
+
+              <ul class="mt-4 space-y-2">
+                {job.highlights.map((h) => (
+                  <li class="flex items-start gap-3 text-ink-muted">
+                    <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent/70" />
+                    {pick(h, lang)}
+                  </li>
+                ))}
+              </ul>
+
+              <div class="mt-5 flex flex-wrap gap-2">
+                {job.tags.map((tag) => (
+                  <span class="chip font-mono text-xs">{tag}</span>
+                ))}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <!-- Education -->
+    <div class="mt-14">
+      <h3 class="mb-6 font-mono text-sm font-semibold uppercase tracking-widest text-ink-muted">
+        {t("experience.education")}
+      </h3>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {
+          education.map((edu) => (
+            <div class="rounded-2xl border border-line bg-surface-raised p-6">
+              <p class="font-semibold text-ink">{edu.school}</p>
+              <p class="mt-1 text-ink-muted">{pick(edu.degree, lang)}</p>
+              <p class="mt-2 font-mono text-sm text-ink-muted">
+                {edu.start} — {pick(edu.end, lang)}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

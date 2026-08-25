@@ -1,0 +1,105 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { profile, socials, site } from "../data/portfolio";
+import LetterGlitch from "../react/LetterGlitch.tsx";
+import Icon from "./Icon.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const cvHref = `${base}${site.cvPath}`.replace(/\/+/g, "/");
+---
+
+<section id="hero" class="relative flex min-h-[100svh] items-center overflow-hidden">
+  <!-- Animated glitch backdrop -->
+  <div class="pointer-events-none absolute inset-0 opacity-70 dark:opacity-60">
+    <LetterGlitch client:visible glitchSpeed={60} outerVignette={true} centerVignette={false} />
+  </div>
+  <!-- Fade the backdrop into the page background -->
+  <div
+    class="pointer-events-none absolute inset-0 bg-gradient-to-b from-surface/40 via-surface/60 to-surface"
+  >
+  </div>
+
+  <div class="container relative z-10 py-24">
+    <div class="max-w-3xl">
+      <p
+        class="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface-raised/80 px-3 py-1 text-sm text-ink-muted backdrop-blur animate-fade-up"
+      >
+        <span class="relative flex h-2 w-2">
+          <span
+            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75"
+          ></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-accent"></span>
+        </span>
+        {t("hero.available")}
+      </p>
+
+      <h1
+        class="text-4xl font-bold leading-tight tracking-tight text-ink sm:text-6xl animate-fade-up"
+        style="animation-delay: 80ms"
+      >
+        {profile.name}
+      </h1>
+
+      <p
+        class="mt-3 text-xl font-medium text-accent-soft sm:text-2xl animate-fade-up"
+        style="animation-delay: 140ms"
+      >
+        {t("hero.role")} <span class="text-ink-muted">{t("hero.and")}</span>
+      </p>
+
+      <p
+        class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted animate-fade-up"
+        style="animation-delay: 200ms"
+      >
+        {t("hero.tagline")}
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-3 animate-fade-up" style="animation-delay: 260ms">
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 font-medium text-accent-contrast shadow-lg shadow-accent/20 transition-transform hover:-translate-y-0.5 hover:bg-accent-soft"
+        >
+          {t("hero.cta.contact")}
+        </a>
+        <a
+          href={cvHref}
+          download
+          class="inline-flex items-center gap-2 rounded-lg border border-line bg-surface-raised px-5 py-3 font-medium text-ink transition-colors hover:border-accent hover:text-accent"
+        >
+          <Icon name="download" size={18} />
+          {t("hero.cta.cv")}
+        </a>
+      </div>
+
+      <div class="mt-9 flex items-center gap-4 animate-fade-up" style="animation-delay: 320ms">
+        {
+          socials.map((s) => (
+            <a
+              href={s.href}
+              target={s.icon === "email" ? undefined : "_blank"}
+              rel="noopener noreferrer"
+              class="text-ink-muted transition-colors hover:text-accent"
+              aria-label={s.label}
+              title={s.label}
+            >
+              <Icon name={s.icon} size={22} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <a
+    href="#about"
+    class="absolute bottom-8 left-1/2 hidden -translate-x-1/2 text-ink-muted transition-colors hover:text-accent sm:block"
+    aria-label={t("nav.about")}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="animate-bounce" aria-hidden="true">
+      <path d="M12 5v14M19 12l-7 7-7-7"></path>
+    </svg>
+  </a>
+</section>

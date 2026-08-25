@@ -1,0 +1,53 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { profile, socials } from "../data/portfolio";
+import SectionHeading from "./SectionHeading.astro";
+import Icon from "./Icon.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section id="contact" class="section-anchor border-t border-line py-24">
+  <div class="container reveal">
+    <SectionHeading eyebrow={t("contact.eyebrow")} title={t("contact.title")} />
+
+    <div class="rounded-2xl border border-line bg-surface-raised p-8 sm:p-12">
+      <p class="max-w-xl text-lg leading-relaxed text-ink-muted">{t("contact.lead")}</p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <a
+          href={`mailto:${profile.email}`}
+          class="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 font-medium text-accent-contrast shadow-lg shadow-accent/20 transition-transform hover:-translate-y-0.5 hover:bg-accent-soft"
+        >
+          <Icon name="email" size={18} />
+          {profile.email}
+        </a>
+
+        <div class="flex items-center gap-2">
+          {
+            socials
+              .filter((s) => s.icon !== "email")
+              .map((s) => (
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-line bg-surface text-ink-muted transition-colors hover:border-accent hover:text-accent"
+                  aria-label={s.label}
+                  title={s.label}
+                >
+                  <Icon name={s.icon} size={20} />
+                </a>
+              ))
+          }
+        </div>
+      </div>
+
+      <p class="mt-6 flex items-center gap-2 text-sm text-ink-muted">
+        <Icon name="map-pin" size={16} class="text-accent" />
+        {t("about.location")}
+      </p>
+    </div>
+  </div>
+</section>
