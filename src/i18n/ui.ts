@@ -32,6 +32,11 @@ export const ui = {
     "hero.cta.contact": "Contáctame",
     "hero.cta.cv": "Descargar CV",
     "hero.available": "Disponible para nuevos proyectos",
+    "hero.meta.current": "Actualmente",
+    "hero.meta.previous": "Antes",
+    "hero.meta.focus": "Enfoque",
+    "hero.meta.status": "Estado",
+    "hero.meta.focusValue": "Backend, web y seguridad",
 
     "about.title": "Sobre mí",
     "about.eyebrow": "Quién soy",
@@ -56,11 +61,17 @@ export const ui = {
       "Muchos de mis proyectos personales son de código abierto y sin fines de lucro, creados para resolver necesidades propias. Algunos los desarrollo con ayuda de IA (“vibe coding”), pero reviso y valido cada línea antes de publicarla.",
     "projects.viewCode": "Código",
     "projects.viewLive": "Ver sitio",
+    "projects.featured": "Destacados",
+    "projects.archive": "Otros proyectos",
+    "projects.private": "Privado",
 
     "contact.title": "Contacto",
     "contact.eyebrow": "Trabajemos juntos",
     "contact.lead":
       "¿Tienes una idea o una oportunidad? Escríbeme por correo o por LinkedIn y te responderé lo antes posible.",
+    "contact.headline": "Construyamos algo que funcione — y que sea seguro.",
+    "contact.elsewhere": "En otros sitios",
+    "contact.location": "Ubicación",
 
     "footer.builtWith": "Hecho con Astro, React y Tailwind CSS.",
     "footer.rights": "Todos los derechos reservados.",
@@ -85,6 +96,11 @@ export const ui = {
     "hero.cta.contact": "Get in touch",
     "hero.cta.cv": "Download CV",
     "hero.available": "Available for new projects",
+    "hero.meta.current": "Currently",
+    "hero.meta.previous": "Previously",
+    "hero.meta.focus": "Focus",
+    "hero.meta.status": "Status",
+    "hero.meta.focusValue": "Backend, web & security",
 
     "about.title": "About me",
     "about.eyebrow": "Who I am",
@@ -109,11 +125,17 @@ export const ui = {
       "Many of my personal projects are open-source and non-profit, built to solve my own needs. Some are developed with AI assistance (“vibe coding”), but I review and validate every line before shipping it.",
     "projects.viewCode": "Code",
     "projects.viewLive": "Live site",
+    "projects.featured": "Selected work",
+    "projects.archive": "More projects",
+    "projects.private": "Private",
 
     "contact.title": "Contact",
     "contact.eyebrow": "Let's work together",
     "contact.lead":
       "Have an idea or an opportunity? Reach out by email or LinkedIn and I'll get back to you as soon as I can.",
+    "contact.headline": "Let's build something that works — and stays secure.",
+    "contact.elsewhere": "Elsewhere",
+    "contact.location": "Based in",
 
     "footer.builtWith": "Built with Astro, React & Tailwind CSS.",
     "footer.rights": "All rights reserved.",

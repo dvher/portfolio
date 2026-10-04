@@ -1,6 +1,8 @@
 ---
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/instrument-serif/400-italic.css";
 import "../styles/global.css";
 import { profile } from "../data/portfolio";
 import { getLangFromUrl, localizedPath } from "../i18n/utils";
@@ -34,7 +36,11 @@ const enUrl = new URL(localizedPath("/", "en"), Astro.site).href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`.replace(/\/+/g, "/")} />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={`${import.meta.env.BASE_URL}/favicon.svg`.replace(/\/+/g, "/")}
+    />
     <meta name="generator" content={Astro.generator} />
 
     <title>{pageTitle}</title>
@@ -59,7 +65,7 @@ const enUrl = new URL(localizedPath("/", "en"), Astro.site).href;
     <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={ogImage} />
 
-    <meta name="theme-color" content="#0a0a0f" />
+    <meta name="theme-color" content="#0e0e0c" />
 
     <!-- No-flash theme init: run before paint. -->
     <script is:inline>
@@ -81,10 +87,10 @@ const enUrl = new URL(localizedPath("/", "en"), Astro.site).href;
       /* Reveal-on-scroll (progressive enhancement; content is visible if JS off) */
       .reveal {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(16px);
         transition:
-          opacity 0.6s ease-out,
-          transform 0.6s ease-out;
+          opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+          transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
       }
       .reveal.is-visible {
         opacity: 1;
@@ -110,7 +116,7 @@ const enUrl = new URL(localizedPath("/", "en"), Astro.site).href;
               }
             });
           },
-          { threshold: 0.12 }
+          { threshold: 0.08 }
         );
         els.forEach((el) => io.observe(el));
       } else {

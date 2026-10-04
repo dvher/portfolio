@@ -1,41 +1,31 @@
 ---
 import { getLangFromUrl, useTranslations, pick } from "../i18n/utils";
 import { profile } from "../data/portfolio";
-import SectionHeading from "./SectionHeading.astro";
-import Icon from "./Icon.astro";
+import Section from "./Section.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Lead with the first sentence of the bio, set larger; the rest follows as body copy.
+const bio = pick(profile.bio, lang);
+const splitAt = bio.indexOf(". ") + 1;
+const lead = splitAt > 0 ? bio.slice(0, splitAt) : bio;
+const body = splitAt > 0 ? bio.slice(splitAt).trim() : "";
 ---
 
-<section id="about" class="section-anchor border-t border-line py-24">
-  <div class="container reveal">
-    <SectionHeading eyebrow={t("about.eyebrow")} title={t("about.title")} />
+<Section id="about" index="01" eyebrow={t("about.eyebrow")} title={t("about.title")}>
+  <p class="font-serif text-3xl leading-snug text-ink sm:text-4xl">{lead}</p>
+  {body && <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">{body}</p>}
 
-    <div class="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
-      <div class="space-y-5 text-lg leading-relaxed text-ink-muted">
-        <p>{pick(profile.bio, lang)}</p>
-        <p class="flex items-center gap-2 text-base text-ink">
-          <Icon name="map-pin" size={18} class="text-accent" />
-          {t("about.location")}
-        </p>
-      </div>
-
-      <div class="rounded-2xl border border-line bg-surface-raised p-6">
-        <h3 class="mb-4 font-mono text-sm font-semibold uppercase tracking-widest text-ink-muted">
-          {t("about.factsTitle")}
-        </h3>
-        <ul class="space-y-3">
-          {
-            profile.facts.map((fact) => (
-              <li class="flex items-start gap-3 text-ink">
-                <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                {pick(fact, lang)}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+  <h3 class="label mt-14">{t("about.factsTitle")}</h3>
+  <ul class="mt-4 grid border-t border-line sm:grid-cols-2">
+    {
+      profile.facts.map((fact, i) => (
+        <li class="flex items-baseline gap-4 border-b border-line py-4 sm:odd:pr-6 sm:even:border-l sm:even:pl-6">
+          <span class="font-mono text-xs text-accent">{String(i + 1).padStart(2, "0")}</span>
+          <span class="text-ink">{pick(fact, lang)}</span>
+        </li>
+      ))
+    }
+  </ul>
+</Section>

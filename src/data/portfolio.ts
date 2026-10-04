@@ -50,6 +50,8 @@ export interface Project {
   featured?: boolean;
   /** Accent pills shown above the tech tags (e.g. open-source, non-profit). */
   badges?: BadgeKey[];
+  /** Companion repos shown next to the main link (e.g. a server or mobile client). */
+  related?: { label: string; href: string }[];
 }
 
 /** Bilingual labels for project badges. */
@@ -208,13 +210,19 @@ export const softSkills: Bilingual[] = [
 
 export const projects: Project[] = [
   {
-    name: "Nibbin",
-    year: "2023",
+    name: "Pogo",
+    year: "2026",
     description: {
-      es: "Desarrollo full-stack de la plataforma web y de su infraestructura, de principio a fin.",
-      en: "End-to-end full-stack development of the web platform and its infrastructure.",
+      es: "Notas adhesivas en Markdown que flotan sobre tus ventanas: ánclalas en su lugar, marca tareas y sincronízalas entre dispositivos mediante Pogo Pad, un servidor que alojas tú mismo, con cifrado de extremo a extremo opcional. Incluye Pogo Pocket, un widget de Android que sincroniza con el mismo servidor.",
+      en: "Markdown sticky notes that float above your windows: anchor them in place, tick off tasks and sync them across devices through Pogo Pad, a server you host yourself, with optional end-to-end encryption. Includes Pogo Pocket, an Android widget that syncs through the same server.",
     },
-    tags: ["Full-stack", "Web", "Infrastructure"],
+    tags: ["Go", "Wails", "Svelte", "SQLite", "Kotlin", "AES-256-GCM · Argon2id"],
+    repo: "https://github.com/dvher/pogo",
+    related: [
+      { label: "Pogo Pad", href: "https://github.com/dvher/pogo_pad" },
+      { label: "Pogo Pocket", href: "https://github.com/dvher/pogo_pocket" },
+    ],
+    badges: ["open-source", "non-profit", "ai-reviewed"],
     featured: true,
   },
   {
@@ -242,8 +250,8 @@ export const projects: Project[] = [
   {
     name: "3D Viewer",
     description: {
-      es: "App móvil multiplataforma para ver y comparar modelos 3D (STL, 3MF, GLB/glTF, OBJ) desde el teléfono, con rotación por gestos, importación múltiple y un modo \"diff\" que superpone dos modelos para resaltar diferencias geométricas.",
-      en: "A cross-platform mobile app to view and compare 3D models (STL, 3MF, GLB/glTF, OBJ) on your phone, with gesture rotation, multi-file import and a \"diff\" mode that overlays two models to highlight geometric differences.",
+      es: 'App móvil multiplataforma para ver y comparar modelos 3D (STL, 3MF, GLB/glTF, OBJ) desde el teléfono, con rotación por gestos, importación múltiple y un modo "diff" que superpone dos modelos para resaltar diferencias geométricas.',
+      en: 'A cross-platform mobile app to view and compare 3D models (STL, 3MF, GLB/glTF, OBJ) on your phone, with gesture rotation, multi-file import and a "diff" mode that overlays two models to highlight geometric differences.',
     },
     tags: ["React Native", "Expo", "three.js", "TypeScript"],
     repo: "https://github.com/dvher/3d_viewer_app",
@@ -251,14 +259,13 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    name: "Notes & Mood App",
+    name: "Nibbin",
+    year: "2023",
     description: {
-      es: "App móvil de notas y estado de ánimo, estilo Letterboxd: registra una de cinco emociones cada día, añade notas y sigue tu evolución con historial y estadísticas. Offline y bilingüe (ES/EN).",
-      en: "A notes & mood mobile app, Letterboxd-style: log one of five emotions each day, add notes and track your trends with history and statistics. Offline and bilingual (EN/ES).",
+      es: "Desarrollo full-stack de la plataforma web y de su infraestructura, de principio a fin.",
+      en: "End-to-end full-stack development of the web platform and its infrastructure.",
     },
-    tags: ["React Native", "Expo", "SQLite", "TypeScript"],
-    repo: "https://github.com/dvher/note_taking_app",
-    badges: ["open-source", "non-profit", "ai-reviewed"],
+    tags: ["Full-stack", "Web", "Infrastructure"],
   },
   {
     name: "mcrcon_discord",
