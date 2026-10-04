@@ -1,0 +1,35 @@
+---
+/*
+ * Shared section layout: a numbered label rail on the left (sticky on large
+ * screens) and the section content on the right, separated by a hairline.
+ */
+interface Props {
+  id: string;
+  index: string;
+  eyebrow: string;
+  title: string;
+}
+const { id, index, eyebrow, title } = Astro.props;
+---
+
+<section id={id} class="section-anchor py-20 lg:py-28">
+  <div class="reveal container">
+    <div class="grid gap-10 border-t border-line pt-8 lg:grid-cols-12 lg:gap-12">
+      <header class="lg:col-span-4">
+        <div class="lg:sticky lg:top-24">
+          <p class="label flex items-center gap-3">
+            <span class="text-accent">{index}</span>
+            <span class="h-px w-8 bg-line"></span>
+            {eyebrow}
+          </p>
+          <h2 class="mt-4 font-serif text-5xl leading-[1.05] tracking-tight text-ink sm:text-6xl">
+            {title}
+          </h2>
+        </div>
+      </header>
+      <div class="lg:col-span-8">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>

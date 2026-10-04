@@ -7,30 +7,37 @@
  *  THEME TOKENS
  *  Colors are stored as space-separated RGB channels so Tailwind can apply
  *  opacity (e.g. bg-accent/20). To re-theme the whole site, change --accent
- *  below — everything (buttons, links, glows, glitch effect) follows it.
+ *  below — buttons, links, markers and the hero grid all follow it.
+ *
+ *  Look: warm "paper & ink" neutrals with a single signal-orange accent,
+ *  serif display type (Instrument Serif) over Inter, mono for metadata.
  * ──────────────────────────────────────────────────────────────────────────
  */
 :root {
-  /* Accent — violet. Swap these three lines to re-brand. */
-  --accent: 139 92 246; /* violet-500  */
-  --accent-soft: 167 139 250; /* violet-400  */
+  /* Accent — signal orange. Swap these lines to re-brand. */
+  --accent: 194 65 12; /* orange-700, AA on paper */
+  --accent-soft: 234 88 12;
   --accent-contrast: 255 255 255;
 
-  /* Light theme surfaces */
-  --surface: 250 250 252;
+  /* Light theme surfaces — warm paper */
+  --surface: 246 244 239;
   --surface-raised: 255 255 255;
-  --ink: 24 24 34;
-  --ink-muted: 90 92 110;
-  --line: 226 226 236;
+  --ink: 22 21 18;
+  --ink-muted: 106 103 95;
+  --line: 222 218 208;
 }
 
 :root.dark {
-  /* Dark theme surfaces (default look) */
-  --surface: 10 10 15;
-  --surface-raised: 22 22 30;
-  --ink: 236 237 243;
-  --ink-muted: 148 150 168;
-  --line: 40 41 54;
+  /* Dark theme surfaces (default look) — warm ink */
+  --accent: 255 122 61;
+  --accent-soft: 255 154 108;
+  --accent-contrast: 20 12 8;
+
+  --surface: 14 14 12;
+  --surface-raised: 22 22 20;
+  --ink: 237 235 230;
+  --ink-muted: 154 151 143;
+  --line: 42 41 37;
 }
 
 html {
@@ -53,12 +60,13 @@ html {
 }
 
 body {
-  @apply bg-surface text-ink font-sans antialiased;
+  @apply bg-surface font-sans text-ink antialiased;
   min-height: 100dvh;
+  font-feature-settings: "ss01", "cv11";
 }
 
 ::selection {
-  background-color: rgb(var(--accent) / 0.3);
+  background-color: rgb(var(--accent) / 0.25);
   color: rgb(var(--ink));
 }
 
@@ -78,14 +86,46 @@ body {
   background-clip: content-box;
 }
 
+:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 3px;
+}
+
 @layer components {
   .section-anchor {
     scroll-margin-top: 5rem;
   }
+  /* Small uppercase mono label used for metadata and section rails. */
+  .label {
+    @apply font-mono text-[0.72rem] font-medium uppercase tracking-[0.14em] text-ink-muted;
+  }
+  /* Tech tags: quiet mono text, separated by slashes via .tag-list. */
+  .tag-list {
+    @apply flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs text-ink-muted;
+  }
+  .tag-list > * + *::before {
+    content: "/";
+    @apply mr-3 text-line;
+  }
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-raised px-3 py-1 text-sm text-ink-muted;
+    @apply inline-flex items-center rounded-full border border-line px-3 py-1 text-sm text-ink;
   }
   .link-underline {
-    @apply relative transition-colors hover:text-accent-soft;
+    @apply underline decoration-line decoration-1 underline-offset-[6px] transition-colors hover:text-accent hover:decoration-accent;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-surface transition-colors hover:bg-accent hover:text-accent-contrast;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-ink;
+  }
+  /* Faint engineering grid used behind the hero, faded out radially. */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgb(var(--line) / 0.7) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--line) / 0.7) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 20%, transparent 75%);
   }
 }

@@ -1,7 +1,8 @@
 # Diego Vergara — Portfolio
 
 Personal portfolio of **Diego Vergara**, full-stack developer & cybersecurity enthusiast.
-Bilingual (Español / English), dark theme with a violet accent.  
+Bilingual (Español / English), warm "paper & ink" light/dark themes with a signal-orange accent and
+Instrument Serif display type.  
 
 This project is mostly vibe-coded and reviewed by me, made public just as an example for anyone who is looking for inspiration.
 
@@ -42,10 +43,9 @@ Everything is content-driven — you shouldn't need to touch the components:
 
 ### Changing the accent color
 
-Edit the three `--accent*` variables at the top of **`src/styles/global.css`** (values are
-`R G B` channels). Everything — buttons, links, glows, the hero glitch — follows the accent.
-To retint the hero animation more precisely, adjust `DEFAULT_COLORS` in
-`src/react/LetterGlitch.tsx`.
+Edit the `--accent*` variables in **`src/styles/global.css`** (values are `R G B` channels;
+there is one set for the light theme and one for dark). Buttons, links, markers and the hero
+grid all follow the accent.
 
 ## Deployment
 
@@ -75,7 +75,7 @@ src/
 ├── data/          portfolio.ts — content source of truth
 ├── i18n/          ui.ts (dictionaries) + utils.ts (helpers)
 ├── layouts/       Layout.astro — <head>, SEO, theme init
-├── react/         React islands (LetterGlitch, ThemeToggle)
+├── react/         React islands (ThemeToggle)
 ├── pages/         index.astro (es) + en/index.astro (en)
 └── styles/        global.css — theme tokens
 ```
