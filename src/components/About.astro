@@ -5,27 +5,12 @@ import Section from "./Section.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-// Lead with the first sentence of the bio, set larger; the rest follows as body copy.
-const bio = pick(profile.bio, lang);
-const splitAt = bio.indexOf(". ") + 1;
-const lead = splitAt > 0 ? bio.slice(0, splitAt) : bio;
-const body = splitAt > 0 ? bio.slice(splitAt).trim() : "";
 ---
 
-<Section id="about" index="01" eyebrow={t("about.eyebrow")} title={t("about.title")}>
-  <p class="font-serif text-3xl leading-snug text-ink sm:text-4xl">{lead}</p>
-  {body && <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">{body}</p>}
+<Section id="about" title={t("about.title")}>
+  <p>{pick(profile.bio, lang)}</p>
 
-  <h3 class="label mt-14">{t("about.factsTitle")}</h3>
-  <ul class="mt-4 grid border-t border-line sm:grid-cols-2">
-    {
-      profile.facts.map((fact, i) => (
-        <li class="flex items-baseline gap-4 border-b border-line py-4 sm:odd:pr-6 sm:even:border-l sm:even:pl-6">
-          <span class="font-mono text-xs text-accent">{String(i + 1).padStart(2, "0")}</span>
-          <span class="text-ink">{pick(fact, lang)}</span>
-        </li>
-      ))
-    }
+  <ul class="dash-list mt-5 space-y-1 text-ink-muted">
+    {profile.facts.map((fact) => <li>{pick(fact, lang)}</li>)}
   </ul>
 </Section>

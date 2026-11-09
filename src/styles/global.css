@@ -6,126 +6,109 @@
  * ──────────────────────────────────────────────────────────────────────────
  *  THEME TOKENS
  *  Colors are stored as space-separated RGB channels so Tailwind can apply
- *  opacity (e.g. bg-accent/20). To re-theme the whole site, change --accent
- *  below — buttons, links, markers and the hero grid all follow it.
+ *  opacity (e.g. text-ink/60).
  *
- *  Look: warm "paper & ink" neutrals with a single signal-orange accent,
- *  serif display type (Instrument Serif) over Inter, mono for metadata.
+ *  Look: a plain sheet of paper. Ink on warm off-white, one monospace face,
+ *  and a single muted ink-blue accent reserved for links on hover.
  * ──────────────────────────────────────────────────────────────────────────
  */
 :root {
-  /* Accent — signal orange. Swap these lines to re-brand. */
-  --accent: 194 65 12; /* orange-700, AA on paper */
-  --accent-soft: 234 88 12;
-  --accent-contrast: 255 255 255;
+  /* Accent — muted ink blue. Swap this line to re-brand. */
+  --accent: 47 74 109;
 
-  /* Light theme surfaces — warm paper */
-  --surface: 246 244 239;
+  /* Light theme (default) — white paper */
+  --surface: 244 243 239;
   --surface-raised: 255 255 255;
-  --ink: 22 21 18;
-  --ink-muted: 106 103 95;
-  --line: 222 218 208;
+  --ink: 28 27 25;
+  --ink-muted: 107 104 98;
+  --line: 220 216 207;
 }
 
 :root.dark {
-  /* Dark theme surfaces (default look) — warm ink */
-  --accent: 255 122 61;
-  --accent-soft: 255 154 108;
-  --accent-contrast: 20 12 8;
+  /* Dark theme — dim ink */
+  --accent: 143 168 200;
 
-  --surface: 14 14 12;
-  --surface-raised: 22 22 20;
-  --ink: 237 235 230;
-  --ink-muted: 154 151 143;
-  --line: 42 41 37;
+  --surface: 17 17 16;
+  --surface-raised: 24 24 22;
+  --ink: 230 227 220;
+  --ink-muted: 154 150 142;
+  --line: 46 45 41;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
   -webkit-text-size-adjust: 100%;
+  font-size: 15px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
 }
 
 body {
-  @apply bg-surface font-sans text-ink antialiased;
+  @apply bg-surface font-mono text-ink antialiased;
   min-height: 100dvh;
-  font-feature-settings: "ss01", "cv11";
+  line-height: 1.7;
+}
+
+/*
+ * Paper grain: contrast-boosted fractal noise laid over the whole page. It sits above the
+ * content but ignores clicks; multiply keeps it from washing out the ink.
+ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='3' intercept='-1'/%3E%3CfeFuncG type='linear' slope='3' intercept='-1'/%3E%3CfeFuncB type='linear' slope='3' intercept='-1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:root.dark body::before {
+  opacity: 0.05;
+  mix-blend-mode: screen;
 }
 
 ::selection {
-  background-color: rgb(var(--accent) / 0.25);
+  background-color: rgb(var(--accent) / 0.2);
   color: rgb(var(--ink));
 }
 
-/* Custom scrollbar */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgb(var(--line)) transparent;
-}
-*::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-*::-webkit-scrollbar-thumb {
-  background-color: rgb(var(--line));
-  border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
 :focus-visible {
-  outline: 2px solid rgb(var(--accent));
+  outline: 1px dashed rgb(var(--accent));
   outline-offset: 3px;
 }
 
 @layer components {
   .section-anchor {
-    scroll-margin-top: 5rem;
+    scroll-margin-top: 2rem;
   }
-  /* Small uppercase mono label used for metadata and section rails. */
+  /* Small uppercase muted label used for section headings and metadata. */
   .label {
-    @apply font-mono text-[0.72rem] font-medium uppercase tracking-[0.14em] text-ink-muted;
+    @apply text-xs font-medium uppercase tracking-[0.12em] text-ink-muted;
   }
-  /* Tech tags: quiet mono text, separated by slashes via .tag-list. */
+  /* Plain underlined link; the accent only shows up on hover. */
+  .link {
+    @apply underline decoration-line decoration-1 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent;
+  }
+  /* Tech tags: muted text, separated by slashes. */
   .tag-list {
-    @apply flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs text-ink-muted;
+    @apply flex flex-wrap gap-x-2 text-sm text-ink-muted;
   }
   .tag-list > * + *::before {
     content: "/";
-    @apply mr-3 text-line;
+    @apply mr-2 text-ink-muted/50;
   }
-  .chip {
-    @apply inline-flex items-center rounded-full border border-line px-3 py-1 text-sm text-ink;
+  /* Dash bullets for plain lists. */
+  .dash-list > li {
+    @apply relative pl-5;
   }
-  .link-underline {
-    @apply underline decoration-line decoration-1 underline-offset-[6px] transition-colors hover:text-accent hover:decoration-accent;
-  }
-  .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-surface transition-colors hover:bg-accent hover:text-accent-contrast;
-  }
-  .btn-ghost {
-    @apply inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-sm font-medium text-ink transition-colors hover:border-ink;
-  }
-  /* Faint engineering grid used behind the hero, faded out radially. */
-  .bg-grid {
-    background-image:
-      linear-gradient(rgb(var(--line) / 0.7) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(var(--line) / 0.7) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 20%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 20%, transparent 75%);
+  .dash-list > li::before {
+    content: "-";
+    @apply absolute left-0 text-ink-muted;
   }
 }
