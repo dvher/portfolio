@@ -2,108 +2,68 @@
 import { getLangFromUrl, useTranslations, pick } from "../i18n/utils";
 import { projects, badgeLabels } from "../data/portfolio";
 import Section from "./Section.astro";
-import Icon from "./Icon.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const featured = projects.filter((p) => p.featured);
 const archive = projects.filter((p) => !p.featured);
+const ext = { target: "_blank", rel: "noopener noreferrer" };
 ---
 
-<Section id="projects" index="04" eyebrow={t("projects.eyebrow")} title={t("projects.title")}>
-  <p class="max-w-2xl border-l-2 border-accent pl-5 leading-relaxed text-ink-muted">
-    {t("projects.note")}
-  </p>
+<Section id="projects" title={t("projects.title")}>
+  <p class="text-sm text-ink-muted">{t("projects.note")}</p>
 
-  <h3 class="label mt-14">{t("projects.featured")}</h3>
-  <ol class="mt-4 border-t border-line">
+  <ol class="mt-8 space-y-8">
     {
-      featured.map((project, i) => (
-        <li class="group grid gap-x-8 gap-y-3 border-b border-line py-10 sm:grid-cols-[9rem_1fr]">
-          <p class="label pt-3">
-            <span class="text-accent">P—{String(i + 1).padStart(2, "0")}</span>
-            {project.year && <span class="ml-2">{project.year}</span>}
-          </p>
-
+      featured.map((project) => (
+        <li>
           <article>
-            <h4 class="font-serif text-4xl tracking-tight text-ink sm:text-5xl">
-              {project.repo ? (
-                <a
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-start gap-2 transition-colors hover:text-accent"
-                >
-                  {project.name}
-                  <Icon
-                    name="arrow-up-right"
-                    size={22}
-                    class="mt-1 text-ink-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
-                  />
-                </a>
-              ) : (
-                project.name
-              )}
-            </h4>
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="font-semibold">
+                {project.repo ? (
+                  <a href={project.repo} {...ext} class="link">
+                    {project.name} ↗
+                  </a>
+                ) : (
+                  project.name
+                )}
+              </h3>
+              {project.year && <span class="shrink-0 text-sm text-ink-muted">{project.year}</span>}
+            </div>
 
             {project.badges && project.badges.length > 0 && (
-              <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-1">
-                {project.badges.map((badge) => (
-                  <li class="label flex items-center gap-2 text-ink">
-                    <span class="h-1.5 w-1.5 bg-accent" />
-                    {pick(badgeLabels[badge], lang)}
-                  </li>
-                ))}
-              </ul>
+              <p class="mt-1 text-xs text-ink-muted">
+                {project.badges.map((badge) => `[${pick(badgeLabels[badge], lang)}]`).join(" ")}
+              </p>
             )}
 
-            <p class="mt-4 max-w-2xl text-lg leading-relaxed text-ink-muted">
-              {pick(project.description, lang)}
-            </p>
+            <p class="mt-2">{pick(project.description, lang)}</p>
 
-            <div class="tag-list mt-5">
+            <div class="tag-list mt-2">
               {project.tags.map((tag) => (
                 <span>{tag}</span>
               ))}
             </div>
 
             {(project.repo || project.live || project.related) && (
-              <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+              <p class="mt-2 flex flex-wrap gap-x-4 text-sm">
                 {project.repo && (
-                  <a
-                    href={project.repo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-underline inline-flex items-center gap-1.5 text-ink"
-                  >
-                    <Icon name="github" size={15} />
-                    {t("projects.viewCode")}
+                  <a href={project.repo} {...ext} class="link">
+                    {t("projects.viewCode").toLowerCase()} ↗
                   </a>
                 )}
                 {project.live && (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-underline inline-flex items-center gap-1.5 text-ink"
-                  >
-                    <Icon name="external" size={15} />
-                    {t("projects.viewLive")}
+                  <a href={project.live} {...ext} class="link">
+                    {t("projects.viewLive").toLowerCase()} ↗
                   </a>
                 )}
                 {project.related?.map((r) => (
-                  <a
-                    href={r.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="link-underline inline-flex items-center gap-1.5 text-ink-muted"
-                  >
-                    {r.label}
-                    <Icon name="arrow-up-right" size={14} />
+                  <a href={r.href} {...ext} class="link text-ink-muted">
+                    {r.label} ↗
                   </a>
                 ))}
-              </div>
+              </p>
             )}
           </article>
         </li>
@@ -114,43 +74,21 @@ const archive = projects.filter((p) => !p.featured);
   {
     archive.length > 0 && (
       <>
-        <h3 class="label mt-16">{t("projects.archive")}</h3>
-        <ul class="mt-4 border-t border-line">
+        <h3 class="label mt-10">{t("projects.archive")}</h3>
+        <ul class="dash-list mt-4 space-y-2">
           {archive.map((project) => {
             const href = project.live ?? project.repo;
-            const Tag = href ? "a" : "div";
             return (
-              <li class="border-b border-line">
-                <Tag
-                  {...(href ? { href, target: "_blank", rel: "noopener noreferrer" } : {})}
-                  class:list={[
-                    "group grid gap-x-8 gap-y-2 py-6 sm:grid-cols-[9rem_1fr_auto]",
-                    href && "transition-colors hover:bg-surface-raised",
-                  ]}
-                >
-                  <p class="text-lg font-medium text-ink transition-colors group-hover:text-accent sm:pt-0.5 sm:text-base">
+              <li>
+                {href ? (
+                  <a href={href} {...ext} class="link font-semibold">
                     {project.name}
-                  </p>
-                  <div>
-                    <p class="leading-relaxed text-ink-muted">{pick(project.description, lang)}</p>
-                    <div class="tag-list mt-3">
-                      {project.tags.map((tag) => (
-                        <span>{tag}</span>
-                      ))}
-                    </div>
-                  </div>
-                  <span class="hidden pt-1 sm:block">
-                    {href ? (
-                      <Icon
-                        name="arrow-up-right"
-                        size={18}
-                        class="text-ink-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
-                      />
-                    ) : (
-                      <span class="label">{t("projects.private")}</span>
-                    )}
-                  </span>
-                </Tag>
+                  </a>
+                ) : (
+                  <span class="font-semibold">{project.name}</span>
+                )}
+                {!href && <span class="text-xs text-ink-muted"> [{t("projects.private").toLowerCase()}]</span>}
+                <span class="text-ink-muted"> — {pick(project.description, lang)}</span>
               </li>
             );
           })}

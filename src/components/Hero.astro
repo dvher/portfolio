@@ -1,114 +1,39 @@
 ---
-import { getLangFromUrl, useTranslations, pick } from "../i18n/utils";
-import { profile, socials, site, experience } from "../data/portfolio";
-import Icon from "./Icon.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { profile, socials, site } from "../data/portfolio";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 const cvHref = `${base}${site.cvPath}`.replace(/\/+/g, "/");
-
-const [first, ...rest] = profile.name.split(" ");
-const [current, previous] = experience;
-
-const meta = [
-  { label: t("hero.meta.current"), value: `${pick(current.role, lang)} · ${current.company}` },
-  previous && {
-    label: t("hero.meta.previous"),
-    value: `${pick(previous.role, lang)} · ${previous.company}`,
-  },
-  { label: t("hero.meta.focus"), value: t("hero.meta.focusValue") },
-].filter(Boolean) as { label: string; value: string }[];
 ---
 
-<section id="hero" class="relative overflow-hidden pb-4 pt-28 sm:pt-40 lg:pb-8">
-  <div class="bg-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+<section id="hero" class="mt-14">
+  <h1 class="text-2xl font-semibold tracking-tight">{profile.name}</h1>
+  <p class="mt-1 text-ink-muted">
+    {t("hero.role")}
+    {t("hero.and")} · {profile.location}
+  </p>
 
-  <div class="container relative">
-    <p class="label flex animate-fade-up items-center gap-3">
-      <Icon name="map-pin" size={14} class="text-accent" />
-      {profile.location}
-      <span class="hidden h-px w-8 bg-line sm:inline-block"></span>
-      <span class="hidden sm:inline">{t("hero.role")}</span>
-    </p>
+  <p class="mt-6">{t("hero.tagline")}</p>
+  <p class="mt-2 text-sm text-ink-muted">→ {t("hero.available")}</p>
 
-    <h1
-      class="mt-8 animate-fade-up font-serif text-[clamp(4rem,17vw,10.5rem)] leading-[0.9] tracking-[-0.02em] text-ink"
-      style="animation-delay: 80ms"
-    >
-      {first}
-      <span class="italic text-accent">{rest.join(" ")}</span>
-    </h1>
-
-    <div class="mt-14 grid gap-12 border-t border-line pt-10 lg:grid-cols-12">
-      <div class="animate-fade-up lg:col-span-7" style="animation-delay: 160ms">
-        <p class="max-w-xl text-2xl leading-snug text-ink sm:text-[1.7rem]">
-          {t("hero.role")}
-          <span class="text-ink-muted">{t("hero.and")}.</span>
-        </p>
-        <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink-muted">
-          {t("hero.tagline")}
-        </p>
-
-        <div class="mt-9 flex flex-wrap items-center gap-3">
-          <a href="#contact" class="btn-primary group">
-            {t("hero.cta.contact")}
-            <Icon
-              name="arrow-right"
-              size={16}
-              class="transition-transform group-hover:translate-x-0.5"
-            />
-          </a>
-          <a href={cvHref} download class="btn-ghost">
-            <Icon name="download" size={16} />
-            {t("hero.cta.cv")}
-          </a>
-        </div>
-      </div>
-
-      <div class="animate-fade-up lg:col-span-5" style="animation-delay: 240ms">
-        <dl>
-          {
-            meta.map((row) => (
-              <div class="grid grid-cols-[6.5rem_1fr] gap-4 border-b border-line py-3.5 first:pt-0 sm:grid-cols-[7.5rem_1fr]">
-                <dt class="label pt-0.5">{row.label}</dt>
-                <dd class="text-ink">{row.value}</dd>
-              </div>
-            ))
-          }
-          <div
-            class="grid grid-cols-[6.5rem_1fr] gap-4 border-b border-line py-3.5 sm:grid-cols-[7.5rem_1fr]"
+  <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+    {
+      socials.map((s) => (
+        <li>
+          <a
+            href={s.href}
+            target={s.icon === "email" ? undefined : "_blank"}
+            rel="noopener noreferrer"
+            class="link"
           >
-            <dt class="label pt-0.5">{t("hero.meta.status")}</dt>
-            <dd class="flex items-center gap-2.5 text-ink">
-              <span class="relative flex h-2 w-2">
-                <span
-                  class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60"
-                ></span>
-                <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
-              </span>
-              {t("hero.available")}
-            </dd>
-          </div>
-        </dl>
-        <div class="flex items-center gap-5 pt-5">
-          {
-            socials.map((s) => (
-              <a
-                href={s.href}
-                target={s.icon === "email" ? undefined : "_blank"}
-                rel="noopener noreferrer"
-                class="text-ink-muted transition-colors hover:text-accent"
-                aria-label={s.label}
-                title={s.label}
-              >
-                <Icon name={s.icon} size={20} />
-              </a>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-  </div>
+            {s.label.toLowerCase()}
+          </a>
+        </li>
+      ))
+    }
+    <li><a href={cvHref} download class="link">cv.pdf</a></li>
+  </ul>
 </section>

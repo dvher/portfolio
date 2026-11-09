@@ -237,14 +237,15 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    name: "CrossSum",
+    name: "Grades Calculator",
+    year: "2026",
     description: {
-      es: "Juego de crucigrama matemático para Android, sin anuncios: rellena la grilla con números que satisfagan las ecuaciones. Puzzles generados proceduralmente, cuatro niveles de dificultad, modo offline y bilingüe (ES/EN).",
-      en: "An ad-free Android math-crossword game: fill the grid with numbers that satisfy each equation. Procedurally generated puzzles, four difficulty levels, offline play and bilingual (EN/ES).",
+      es: "Calcula las notas que te faltan para aprobar un ramo, con evaluaciones ponderadas anidadas, nota mínima de examen y escala configurable. Funciona sin conexión como app web (PWA), Android e iOS, con un servidor de sincronización opcional y autoalojado para respaldar y sincronizar entre dispositivos.",
+      en: "Works out the grades you still need to pass a class, with nested weighted evaluations, a minimum exam grade and a configurable scale. Runs offline as a web app (PWA), Android and iOS app, with an optional self-hosted sync server to back up and sync across devices.",
     },
-    tags: ["Kotlin", "Jetpack Compose", "Android", "Material 3"],
-    repo: "https://github.com/dvher/crosssum",
-    badges: ["open-source", "non-profit", "ai-reviewed"],
+    tags: ["TypeScript", "Kotlin", "Swift", "Fastify", "PostgreSQL"],
+    repo: "https://github.com/dvher/grades_calculator",
+    badges: ["open-source", "personal", "ai-reviewed"],
     featured: true,
   },
   {
@@ -257,6 +258,16 @@ export const projects: Project[] = [
     repo: "https://github.com/dvher/3d_viewer_app",
     badges: ["open-source", "non-profit", "ai-reviewed"],
     featured: true,
+  },
+  {
+    name: "Leaf",
+    year: "2026",
+    description: {
+      es: "Lector de libros electrónicos minimalista para Android, iOS, escritorio y web (PWA): EPUB, MOBI, AZW3, PDF, CBZ y más, con temas y diseño de página personalizables, y sincronización entre dispositivos por WebRTC o una carpeta compartida.",
+      en: "A minimal e-reader for Android, iOS, desktop and web (PWA): EPUB, MOBI, AZW3, PDF, CBZ and more, with customizable themes and page layout, and cross-device sync over WebRTC or a shared folder.",
+    },
+    tags: ["TypeScript", "Capacitor", "Tauri", "Rust", "WebRTC"],
+    badges: ["personal", "ai-reviewed"],
   },
   {
     name: "Nibbin",
@@ -285,14 +296,5 @@ export const projects: Project[] = [
     },
     tags: ["Go", "Algorithms"],
     repo: "https://github.com/dvher/advent-of-code",
-  },
-  {
-    name: "Blockchain",
-    description: {
-      es: "Implementación de una blockchain desde cero en Go, hecha como trabajo universitario para entender a fondo cómo funcionan las blockchains.",
-      en: "A blockchain implemented from scratch in Go — university coursework built to understand how blockchains work under the hood.",
-    },
-    tags: ["Go", "Blockchain", "Cryptography"],
-    repo: "https://github.com/dvher/blockchain",
   },
 ];
