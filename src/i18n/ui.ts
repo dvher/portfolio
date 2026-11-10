@@ -37,7 +37,9 @@ export const ui = {
 
     "skills.title": "Habilidades",
     "skills.group.languages": "Lenguajes",
-    "skills.group.frameworks": "Frameworks y herramientas",
+    "skills.group.frameworks": "Backend y web",
+    "skills.group.databases": "Bases de datos",
+    "skills.group.infrastructure": "Infraestructura",
     "skills.group.security": "Seguridad",
     "skills.group.soft": "Habilidades blandas",
 
@@ -80,7 +82,9 @@ export const ui = {
 
     "skills.title": "Skills",
     "skills.group.languages": "Languages",
-    "skills.group.frameworks": "Frameworks & tools",
+    "skills.group.frameworks": "Backend & web",
+    "skills.group.databases": "Databases",
+    "skills.group.infrastructure": "Infrastructure",
     "skills.group.security": "Security",
     "skills.group.soft": "Soft skills",
 
