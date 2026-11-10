@@ -38,7 +38,7 @@ export interface Education {
   end: Bilingual;
 }
 
-export type BadgeKey = "open-source" | "non-profit" | "ai-reviewed" | "personal";
+export type BadgeKey = "open-source" | "non-profit" | "ai-reviewed" | "personal" | "freelance";
 
 export interface Project {
   name: string;
@@ -60,6 +60,7 @@ export const badgeLabels: Record<BadgeKey, Bilingual> = {
   "non-profit": { es: "Sin fines de lucro", en: "Non-profit" },
   "ai-reviewed": { es: "Asistido por IA · revisado", en: "AI-assisted · reviewed" },
   personal: { es: "Proyecto personal", en: "Personal project" },
+  freelance: { es: "Freelance", en: "Freelance" },
 };
 
 export interface SkillGroup {
@@ -84,8 +85,8 @@ export const profile = {
   location: "Santiago, Chile",
   email: "diegovher1@gmail.com",
   bio: {
-    es: `Soy desarrollador full-stack radicado en Santiago de Chile. Actualmente construyo y mantengo aplicaciones web en Teamcore, trabajando principalmente con Python (Django y Flask) y Java, además de automatizar procesos de datos con machine learning. Antes me desempeñé como ingeniero en ciberseguridad, buscando y mitigando vulnerabilidades en aplicaciones e infraestructuras web bajo el marco OWASP. Me muevo cómodo entre el frontend y el backend, y me apasiona escribir software que además de funcionar, sea seguro.`,
-    en: `I'm a full-stack developer based in Santiago, Chile. I currently build and maintain web applications at Teamcore, working mainly with Python (Django and Flask) and Java, and automating data pipelines with machine learning. Earlier I worked as a cybersecurity engineer, finding and mitigating vulnerabilities across web apps and infrastructure under the OWASP framework. I'm comfortable across the frontend and backend, and I care about writing software that not only works, but is secure.`,
+    es: `Soy desarrollador full-stack radicado en Santiago de Chile. Actualmente construyo y mantengo aplicaciones web en Teamcore, trabajando principalmente con Python (Django y Flask) y Java, además de automatizar procesos de datos. Antes me desempeñé como ingeniero en ciberseguridad, buscando y mitigando vulnerabilidades en aplicaciones e infraestructuras web bajo el marco OWASP. Me muevo cómodo entre el frontend y el backend, y me apasiona escribir software que además de funcionar, sea seguro.`,
+    en: `I'm a full-stack developer based in Santiago, Chile. I currently build and maintain web applications at Teamcore, working mainly with Python (Django and Flask) and Java, and automating data pipelines. Earlier I worked as a cybersecurity engineer, finding and mitigating vulnerabilities across web apps and infrastructure under the OWASP framework. I'm comfortable across the frontend and backend, and I care about writing software that not only works, but is secure.`,
   },
   facts: [
     { es: "Full-stack + ciberseguridad", en: "Full-stack + cybersecurity" },
@@ -124,15 +125,11 @@ export const experience: Job[] = [
         en: "Develop and maintain Java web applications running on Apache Tomcat.",
       },
       {
-        es: "Automatización de la categorización de datos con Python y machine learning.",
-        en: "Automated data categorization using Python and machine learning.",
-      },
-      {
         es: "Automatización de obtención de datos y generación de reportes con Python.",
         en: "Automated data collection and report generation with Python.",
       },
     ],
-    tags: ["Python", "Django", "Flask", "Java", "Machine Learning"],
+    tags: ["Python", "Django", "Flask", "Java"],
   },
   {
     company: "ITSec S.A",
@@ -270,13 +267,15 @@ export const projects: Project[] = [
     badges: ["personal", "ai-reviewed"],
   },
   {
-    name: "Nibbin",
+    name: "EKMA",
     year: "2023",
     description: {
-      es: "Desarrollo full-stack de la plataforma web y de su infraestructura, de principio a fin.",
-      en: "End-to-end full-stack development of the web platform and its infrastructure.",
+      es: "Sitio web corporativo para EKMA, empresa chilena de ingeniería y construcción: catálogo de servicios, galería de proyectos y contacto, con diseño responsivo.",
+      en: "Company website for EKMA, a Chilean engineering and construction firm: service catalog, project gallery and contact info, with a responsive design.",
     },
-    tags: ["Full-stack", "Web", "Infrastructure"],
+    tags: ["Hugo", "Static site", "Responsive"],
+    live: "https://ekma.cl",
+    badges: ["freelance"],
   },
   {
     name: "mcrcon_discord",
