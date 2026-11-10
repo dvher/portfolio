@@ -64,7 +64,7 @@ export const badgeLabels: Record<BadgeKey, Bilingual> = {
 };
 
 export interface SkillGroup {
-  key: "languages" | "frameworks" | "security" | "soft";
+  key: "languages" | "frameworks" | "databases" | "infrastructure" | "security" | "soft";
   items: string[];
 }
 
@@ -76,8 +76,8 @@ export const site = {
   // footer. In Spotify: Share → Embed track/album → copy the src from the iframe
   // (starts with https://open.spotify.com/embed/...). Leave empty ("") to hide it.
   spotifyEmbed: "",
-  // Path to the CV inside /public (base path is added automatically in code).
-  cvPath: "/Diego-Vergara-CV.pdf",
+  // Path to each language's CV inside /public (base path is added automatically in code).
+  cvPath: { es: "/Diego-Vergara-CV-ES.pdf", en: "/Diego-Vergara-CV-EN.pdf" } as Bilingual,
 };
 
 export const profile = {
@@ -85,8 +85,8 @@ export const profile = {
   location: "Santiago, Chile",
   email: "diegovher1@gmail.com",
   bio: {
-    es: `Soy desarrollador full-stack radicado en Santiago de Chile. Actualmente construyo y mantengo aplicaciones web en Teamcore, trabajando principalmente con Python (Django y Flask) y Java, además de automatizar procesos de datos. Antes me desempeñé como ingeniero en ciberseguridad, buscando y mitigando vulnerabilidades en aplicaciones e infraestructuras web bajo el marco OWASP. Me muevo cómodo entre el frontend y el backend, y me apasiona escribir software que además de funcionar, sea seguro.`,
-    en: `I'm a full-stack developer based in Santiago, Chile. I currently build and maintain web applications at Teamcore, working mainly with Python (Django and Flask) and Java, and automating data pipelines. Earlier I worked as a cybersecurity engineer, finding and mitigating vulnerabilities across web apps and infrastructure under the OWASP framework. I'm comfortable across the frontend and backend, and I care about writing software that not only works, but is secure.`,
+    es: `Soy desarrollador de software radicado en Santiago de Chile, con más de 3 años de experiencia profesional. En Teamcore construyo herramientas internas, aplicaciones web para clientes e integraciones de API en Python (Django y Flask) y Java. Antes me desempeñé como ingeniero en ciberseguridad, haciendo pentesting de aplicaciones web e infraestructura bajo el marco OWASP. Me muevo cómodo con Linux, Docker y despliegues autoalojados, y me apasiona escribir software que además de funcionar, sea seguro.`,
+    en: `I'm a software developer based in Santiago, Chile, with 3+ years of professional experience. At Teamcore I build internal tools, client-facing web applications and API integrations in Python (Django and Flask) and Java. Earlier I worked as a cybersecurity engineer, pentesting web applications and infrastructure under the OWASP framework. I'm comfortable with Linux, Docker and self-hosted deployments, and I care about writing software that not only works, but is secure.`,
   },
   facts: [
     { es: "Full-stack + ciberseguridad", en: "Full-stack + cybersecurity" },
@@ -107,29 +107,50 @@ export const socials: SocialLink[] = [
 export const experience: Job[] = [
   {
     company: "Teamcore S.A",
-    role: { es: "Desarrollador", en: "Software Developer" },
+    role: { es: "Desarrollador de Software Junior", en: "Junior Software Developer" },
     start: "Nov 2023",
     end: { es: "Presente", en: "Present" },
     location: "Santiago, Chile",
     summary: {
-      es: "Desarrollo y mantenimiento de aplicaciones web, y automatización de procesos de datos.",
-      en: "Building and maintaining web applications and automating data workflows.",
+      es: "Herramientas internas, aplicaciones web para clientes e integraciones de API.",
+      en: "Internal tools, client-facing web applications and API integrations.",
     },
     highlights: [
       {
-        es: "Desarrollo y mantenimiento de aplicaciones web en Python con Django y Flask.",
-        en: "Develop and maintain web applications in Python using Django and Flask.",
+        es: "Desarrollo y mantengo herramientas internas de uso diario y aplicaciones web para clientes, en Python (Django, Flask) y Java sobre Apache Tomcat.",
+        en: "Build and maintain internal tools used daily by the company and web applications used by its clients, in Python (Django, Flask) and Java on Apache Tomcat.",
       },
       {
-        es: "Desarrollo y mantenimiento de aplicaciones web en Java sobre Apache Tomcat.",
-        en: "Develop and maintain Java web applications running on Apache Tomcat.",
+        es: "Desarrollo integraciones de API en Python entre sistemas de la empresa y servicios externos.",
+        en: "Develop API integrations in Python between company systems and external services.",
       },
       {
-        es: "Automatización de obtención de datos y generación de reportes con Python.",
-        en: "Automated data collection and report generation with Python.",
+        es: "Construí un scraper de Mercado Público en Python (requests, MySQL, Django) que descarga los datos más recientes de compras públicas y los valida y depura.",
+        en: "Built a Mercado Público scraper in Python (requests, MySQL, Django) that downloads the latest public-procurement data and validates and cleans it.",
       },
     ],
-    tags: ["Python", "Django", "Flask", "Java"],
+    tags: ["Python", "Django", "Flask", "Java", "Apache Tomcat", "MySQL", "Web scraping"],
+  },
+  {
+    company: "EKMA (ekma.cl)",
+    role: { es: "Desarrollador Full-Stack freelance", en: "Freelance Full-Stack Developer" },
+    start: "2023",
+    end: { es: "Vigente", en: "Ongoing" },
+    summary: {
+      es: "Empresa de construcción y obras civiles menores.",
+      en: "Construction and minor civil works company.",
+    },
+    highlights: [
+      {
+        es: "Construí de principio a fin el sitio web completo de la empresa con Hugo, servido con nginx en Docker sobre un VPS, y lo mantengo funcionando hasta hoy.",
+        en: "Built the company's whole website, end to end with Hugo, served by nginx in Docker on a VPS, and keep it running to this day.",
+      },
+      {
+        es: "Participé en el trabajo de SEO que aumentó la visibilidad de la empresa en Google.",
+        en: "Contributed to SEO work that made the company more visible on Google.",
+      },
+    ],
+    tags: ["Hugo", "nginx", "Docker", "VPS", "SEO"],
   },
   {
     company: "ITSec S.A",
@@ -144,23 +165,19 @@ export const experience: Job[] = [
     },
     highlights: [
       {
-        es: "Búsqueda de vulnerabilidades en aplicaciones web e infraestructuras.",
-        en: "Assessed web applications and infrastructure for vulnerabilities.",
+        es: "Realicé pruebas de penetración en aplicaciones web e infraestructura con Burp Suite, Nmap y otras herramientas habituales, bajo el marco OWASP.",
+        en: "Performed web application and infrastructure penetration tests with Burp Suite, Nmap and other standard pentesting tools, following the OWASP framework.",
       },
       {
-        es: "Trabajo bajo el marco y las guías de OWASP.",
-        en: "Worked under the OWASP framework and guidelines.",
+        es: "Mitigué vulnerabilidades y colaboré en el trabajo de prevención y hardening.",
+        en: "Mitigated vulnerabilities and contributed to preventive hardening.",
       },
       {
-        es: "Mitigación de vulnerabilidades y trabajo de prevención.",
-        en: "Remediated vulnerabilities and drove preventive hardening.",
-      },
-      {
-        es: "Desarrollo de aplicaciones de apoyo a las tareas de seguridad.",
-        en: "Built internal applications supporting security work.",
+        es: "Desarrollé aplicaciones internas de apoyo a las tareas del equipo de seguridad.",
+        en: "Built internal applications that supported the security team's work.",
       },
     ],
-    tags: ["OWASP", "Web Security", "Pentesting", "Vulnerability Assessment"],
+    tags: ["OWASP", "Pentesting", "Burp Suite", "Nmap", "Hardening"],
   },
 ];
 
@@ -168,8 +185,8 @@ export const education: Education[] = [
   {
     school: "Universidad Diego Portales",
     degree: {
-      es: "Ingeniería en Informática y Telecomunicaciones",
-      en: "BSc in Computer & Telecommunications Engineering",
+      es: "Ingeniería Civil en Informática y Telecomunicaciones",
+      en: "Civil Engineering in Computer Science and Telecommunications",
     },
     start: "2019",
     end: { es: "Dic 2025", en: "Dec 2025" },
@@ -181,15 +198,35 @@ export const education: Education[] = [
 export const skills: SkillGroup[] = [
   {
     key: "languages",
-    items: ["Python", "JavaScript", "TypeScript", "Go", "C / C++", "Rust", "PHP", "Java"],
+    items: ["Python", "Go", "TypeScript", "JavaScript", "Java", "Rust", "C", "C++", "PHP"],
   },
   {
     key: "frameworks",
-    items: ["Django", "Flask", "React", "Astro", "Apache Tomcat", "Machine Learning", "Git"],
+    items: [
+      "Django",
+      "Flask",
+      "Fastify",
+      "React",
+      "Svelte",
+      "Astro",
+      "Hugo",
+      "Apache Tomcat",
+      "REST APIs",
+      "Web scraping",
+      "Machine Learning",
+    ],
+  },
+  {
+    key: "databases",
+    items: ["MySQL", "PostgreSQL", "SQLite"],
+  },
+  {
+    key: "infrastructure",
+    items: ["Linux (NixOS)", "Git", "Docker", "nginx", "Nix", "Terraform", "VPS & cloud hosting"],
   },
   {
     key: "security",
-    items: ["OWASP", "Web app pentesting", "Vulnerability assessment", "Hardening"],
+    items: ["OWASP", "Web & infrastructure pentesting", "Burp Suite", "Nmap", "Hardening"],
   },
 ];
 
@@ -210,8 +247,8 @@ export const projects: Project[] = [
     name: "Pogo",
     year: "2026",
     description: {
-      es: "Notas adhesivas en Markdown que flotan sobre tus ventanas: ánclalas en su lugar, marca tareas y sincronízalas entre dispositivos mediante Pogo Pad, un servidor que alojas tú mismo, con cifrado de extremo a extremo opcional. Incluye Pogo Pocket, un widget de Android que sincroniza con el mismo servidor.",
-      en: "Markdown sticky notes that float above your windows: anchor them in place, tick off tasks and sync them across devices through Pogo Pad, a server you host yourself, with optional end-to-end encryption. Includes Pogo Pocket, an Android widget that syncs through the same server.",
+      es: "Notas adhesivas en Markdown que flotan sobre tus ventanas: ánclalas en su lugar, marca tareas y sincronízalas entre dispositivos mediante Pogo Pad, un servidor que alojas tú mismo. Las notas se cifran en disco (AES-256-GCM) y la sincronización admite cifrado de extremo a extremo opcional (Argon2id). Incluye Pogo Pocket, un widget de Android que sincroniza con el mismo servidor.",
+      en: "Markdown sticky notes that float above your windows: anchor them in place, tick off tasks and sync them across devices through Pogo Pad, a server you host yourself. Notes are encrypted at rest (AES-256-GCM) and sync supports optional end-to-end encryption (Argon2id). Includes Pogo Pocket, an Android widget that syncs through the same server.",
     },
     tags: ["Go", "Wails", "Svelte", "SQLite", "Kotlin", "AES-256-GCM · Argon2id"],
     repo: "https://github.com/dvher/pogo",
@@ -225,8 +262,8 @@ export const projects: Project[] = [
   {
     name: "ReqTUI",
     description: {
-      es: "Cliente HTTP para la terminal escrito en Go: una alternativa ligera a Postman o Insomnia, pensada para ser eficiente y cómoda desde la línea de comandos.",
-      en: "A terminal-based HTTP client written in Go — a lightweight alternative to Postman or Insomnia, focused on efficiency and command-line usability.",
+      es: "Cliente HTTP para la terminal escrito en Go: una alternativa ligera a Postman o Insomnia, pensada para ser eficiente y cómoda desde la línea de comandos, con autenticación modular (API key, OAuth2, AWS SigV4). En desarrollo.",
+      en: "A terminal-based HTTP client written in Go — a lightweight alternative to Postman or Insomnia, focused on efficiency and command-line usability, with pluggable auth (API key, OAuth2, AWS SigV4). Work in progress.",
     },
     tags: ["Go", "TUI", "HTTP", "CLI"],
     repo: "https://github.com/dvher/reqtui",
@@ -237,8 +274,8 @@ export const projects: Project[] = [
     name: "Grades Calculator",
     year: "2026",
     description: {
-      es: "Calcula las notas que te faltan para aprobar un ramo, con evaluaciones ponderadas anidadas, nota mínima de examen y escala configurable. Funciona sin conexión como app web (PWA), Android e iOS, con un servidor de sincronización opcional y autoalojado para respaldar y sincronizar entre dispositivos.",
-      en: "Works out the grades you still need to pass a class, with nested weighted evaluations, a minimum exam grade and a configurable scale. Runs offline as a web app (PWA), Android and iOS app, with an optional self-hosted sync server to back up and sync across devices.",
+      es: "Calcula las notas que te faltan para aprobar un ramo, con evaluaciones ponderadas anidadas, nota mínima de examen y escala configurable. Funciona sin conexión como app web (PWA), Android e iOS, con un servidor de sincronización opcional y autoalojado para respaldar y sincronizar entre dispositivos. Las tres versiones se validan con los mismos casos de prueba.",
+      en: "Works out the grades you still need to pass a class, with nested weighted evaluations, a minimum exam grade and a configurable scale. Runs offline as a web app (PWA), Android and iOS app, with an optional self-hosted sync server to back up and sync across devices. All three implementations are checked against shared test cases.",
     },
     tags: ["TypeScript", "Kotlin", "Swift", "Fastify", "PostgreSQL"],
     repo: "https://github.com/dvher/grades_calculator",
@@ -265,17 +302,6 @@ export const projects: Project[] = [
     },
     tags: ["TypeScript", "Capacitor", "Tauri", "Rust", "WebRTC"],
     badges: ["personal", "ai-reviewed"],
-  },
-  {
-    name: "EKMA",
-    year: "2023",
-    description: {
-      es: "Sitio web corporativo para EKMA, empresa chilena de ingeniería y construcción: catálogo de servicios, galería de proyectos y contacto, con diseño responsivo.",
-      en: "Company website for EKMA, a Chilean engineering and construction firm: service catalog, project gallery and contact info, with a responsive design.",
-    },
-    tags: ["Hugo", "Static site", "Responsive"],
-    live: "https://ekma.cl",
-    badges: ["freelance"],
   },
   {
     name: "mcrcon_discord",

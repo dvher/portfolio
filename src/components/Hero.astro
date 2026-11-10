@@ -1,12 +1,12 @@
 ---
-import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { getLangFromUrl, useTranslations, pick } from "../i18n/utils";
 import { profile, socials, site } from "../data/portfolio";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-const cvHref = `${base}${site.cvPath}`.replace(/\/+/g, "/");
+const cvHref = `${base}${pick(site.cvPath, lang)}`.replace(/\/+/g, "/");
 ---
 
 <section id="hero" class="mt-14">

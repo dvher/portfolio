@@ -39,7 +39,7 @@ Everything is content-driven — you shouldn't need to touch the components:
   form service). Update `profile.email` / `socials` in `src/data/portfolio.ts`.
 - **Spotify "now playing"** (optional) — in Spotify use *Share → Embed*, copy the iframe `src`,
   and set `site.spotifyEmbed`. Left as `""` by default, which hides the panel entirely.
-- **CV** — replace `public/Diego-Vergara-CV.pdf` to update the downloadable résumé.
+- **CV** — replace `public/Diego-Vergara-CV-ES.pdf` and `public/Diego-Vergara-CV-EN.pdf` to update the downloadable résumé (each language page links its own).
 
 ### Changing the accent color
 
